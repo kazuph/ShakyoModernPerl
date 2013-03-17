@@ -32,13 +32,37 @@ use Class::Accessor::Lite(
 
 package MyObjMoose;
 use Moose;
-has 'aaa' => (is => 'rw');
-has 'bbb' => (is => 'rw');
-has 'ccc' => (is => 'rw');
+has aaa => (is => 'rw');
+has bbb => (is => 'rw');
+has ccc => (is => 'rw');
 
 __PACKAGE__->meta->make_immutable;
 
 no Moose;
+
+1;
+
+package MyObjMouse;
+use Mouse;
+has aaa => (is => 'rw');
+has bbb => (is => 'rw');
+has ccc => (is => 'rw');
+
+__PACKAGE__->meta->make_immutable;
+
+no Mouse;
+
+1;
+
+package MyObjMoo;
+use Moo;
+has aaa => (is => 'rw');
+has bbb => (is => 'rw');
+has ccc => (is => 'rw');
+
+# __PACKAGE__->meta->make_immutable;
+#
+# no Mouse;
 
 1;
 
@@ -62,6 +86,7 @@ say dump $obj;
 
 # C::A::F なnewをする
 say '#C::A::F';
+# リファレンスがいけてない
 $obj = MyObjCAF->new({aaa => 'hoge', bbb => 'fuga', ccc => 'piyo'});
 say dump $obj;
 $obj->aaa(123);
@@ -69,14 +94,29 @@ say $obj->aaa;
 
 # C::A::L なnewをする
 say '#C::A::L';
-$obj = MyObjCAL->new({aaa => 'hoge', bbb => 'fuga', ccc => 'piyo'});
+$obj = MyObjCAL->new(aaa => 'hoge', bbb => 'fuga', ccc => 'piyo');
 say dump $obj;
 $obj->aaa(123);
 say $obj->aaa;
 
 # Mooseなnewをする
 say '#Moose';
-$obj = MyObjMoose->new({aaa => 'hoge', bbb => 'fuga', ccc => 'piyo'});
+$obj = MyObjMoose->new(aaa => 'hoge', bbb => 'fuga', ccc => 'piyo');
 say dump $obj;
 $obj->aaa(123);
 say $obj->aaa;
+
+# Mouseなnewをする
+say '#Mouse';
+$obj = MyObjMouse->new(aaa => 'hoge', bbb => 'fuga', ccc => 'piyo');
+say dump $obj;
+$obj->aaa(123);
+say $obj->aaa;
+
+# Mooなnewをする
+say '#Moo';
+$obj = MyObjMoo->new(aaa => 'hoge', bbb => 'fuga', ccc => 'piyo');
+say dump $obj;
+$obj->aaa(123);
+say $obj->aaa;
+
