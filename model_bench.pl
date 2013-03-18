@@ -50,7 +50,7 @@ has 'rw4' => ( is => 'rw', isa => 'ArrayRef' , default => sub { [] });
 has 'rw5' => ( is => 'rw', isa => 'HashRef'  , default => sub { {} });
 has 'rw6' => ( is => 'rw', isa => 'CodeRef'  , default => sub { sub {1}  });
 __PACKAGE__->meta->make_immutable;
-no Mouse;
+no Moose;
 1;
 
 package ClassMouse;
